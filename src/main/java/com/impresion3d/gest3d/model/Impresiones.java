@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -14,13 +16,13 @@ public class Impresiones {
     @Id
     private Long impresion_id;
 
-    //@ManyToOne
-    //@JoinColumn(name = "pieza_id")
-    //private Pieza pieza;
+    @ManyToOne
+    @JoinColumn(name = "pieza_id")
+    private Piezas pieza;
 
-    //@ManyToOne
-    //@JoinColumn(name = "rollo_id")
-    //private Rollos rollo;
+    @ManyToOne
+    @JoinColumn(name = "rollo_id")
+    private Rollos rollo;
 
     private LocalDateTime fechaImpresion;
     

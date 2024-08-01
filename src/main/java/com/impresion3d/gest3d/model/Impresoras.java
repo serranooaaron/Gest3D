@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -14,9 +16,9 @@ public class Impresoras {
     private Long IDimpresora;
     private String nom_impresora;
 
-    //@ManyToOne
-    //@JoinColumn(name = "pieza_id")
-    //private Pieza pieza_id;
+    @ManyToOne
+    @JoinColumn(name = "pieza_id")
+    private Piezas pieza_id;
 
     private String marca;
     private String modelo;
