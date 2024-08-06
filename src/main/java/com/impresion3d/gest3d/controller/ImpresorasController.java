@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/impresoras")
-public class ImpresorasController {
+public class ImpresorasController extends GenericController <Impresoras, Long>{
     
 }

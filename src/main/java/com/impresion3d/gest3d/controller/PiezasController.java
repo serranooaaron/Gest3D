@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/piezas")
-public class PiezasController {
+public class PiezasController extends GenericController <Piezas, Long> {
     
 }

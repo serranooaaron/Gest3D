@@ -3,13 +3,20 @@ package com.impresion3d.gest3d.service;
 import com.impresion3d.gest3d.model.Impresiones;
 import com.impresion3d.gest3d.repository.ImpresionesRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ImpresionesService extends GenericService <Impresiones, Long>{
+    
     @Autowired
-    private ImpresionesRepository impresionesRepository;
+    private final ImpresionesRepository impresionesRepository;
+
+    @Autowired
+    public ImpresionesService(ImpresionesRepository impresionesRepository) {
+        this.impresionesRepository = impresionesRepository;
+    }
 
     @Override
     public List<Impresiones> getAll() {
@@ -38,4 +45,15 @@ public class ImpresionesService extends GenericService <Impresiones, Long>{
     public void delete(Long id) {
         impresionesRepository.deleteById(id);
     }
+    
+
+    public void newImpresiones(Impresiones impresiones) {
+       
+        Optional<Impresiones> res = impresionesRepository.findImpresionesByNombre(impresiones.getNombre());
+        if (res.isPresent()) {
+            throw new IllegalStateException("Ya existe el producto.");
+        }
+        impresionesRepository.save(impresiones); 
+    }
+
 }
