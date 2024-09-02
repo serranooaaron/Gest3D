@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface PiezasRepository extends JpaRepository <Piezas, Long>{
-    
-    //@Query("SELECT * FROM Piezas ")
-    //Optional<Piezas> findPiezasByName(String nombre);
+
+    Optional<Piezas> findPiezasByNombre(String nombre);
+
 }

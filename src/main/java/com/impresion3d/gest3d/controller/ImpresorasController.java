@@ -17,29 +17,29 @@ public class ImpresorasController {
     private ImpresorasService impresorasService;
 
     @GetMapping
-    public List<Impresiones> getAll (){
-        return impresionesService.getImpresiones();
+    public List<Impresoras> getAll (){
+        return impresorasService.getImpresoras();
     }
 
     @GetMapping("/{id}")
-    public Optional<Impresiones> getById (@PathVariable("id") Long id){
-        return impresionesService.getImpresiones(id);
+    public Optional<Impresoras> getById (@PathVariable("id") Long id){
+        return impresorasService.getImpresoras(id);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id){
-        impresionesService.delete(id);
+        impresorasService.delete(id);
     }
 
     @PostMapping
-    public void create(@RequestBody Impresiones impresiones){
-        impresionesService.create(impresiones);
+    public void create(@RequestBody Impresoras impresoras){
+        impresorasService.create(impresoras);
     }
 
 
     @PostMapping("/createValidado")
-    public void RegistrarImpresiones(@RequestBody Impresiones impresiones){
-        this.impresionesService.createValidado(impresiones);
+    public void RegistrarImpresoras(@RequestBody Impresoras impresoras){
+        this.impresorasService.createValidado(impresoras);
     }
 
 

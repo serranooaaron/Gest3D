@@ -16,29 +16,29 @@ public class PiezasController {
     private PiezasService piezasService;
 
     @GetMapping
-    public List<Impresiones> getAll (){
-        return impresionesService.getImpresiones();
+    public List<Piezas> getAll (){
+        return piezasService.getPiezas();
     }
 
     @GetMapping("/{id}")
-    public Optional<Impresiones> getById (@PathVariable("id") Long id){
-        return impresionesService.getImpresiones(id);
+    public Optional<Piezas> getById (@PathVariable("id") Long id){
+        return piezasService.getPiezas(id);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id){
-        impresionesService.delete(id);
+        piezasService.delete(id);
     }
 
     @PostMapping
-    public void create(@RequestBody Impresiones impresiones){
-        impresionesService.create(impresiones);
+    public void create(@RequestBody Piezas piezas){
+        piezasService.create(piezas);
     }
 
 
     @PostMapping("/createValidado")
-    public void RegistrarImpresiones(@RequestBody Impresiones impresiones){
-        this.impresionesService.createValidado(impresiones);
+    public void RegistrarPiezas(@RequestBody Piezas piezas){
+        this.piezasService.createValidado(piezas);
     }
 
 

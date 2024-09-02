@@ -17,29 +17,29 @@ public class MaterialesController {
     private MaterialesService materialesService;
 
     @GetMapping
-    public List<Impresiones> getAll (){
-        return impresionesService.getImpresiones();
+    public List<Materiales> getAll (){
+        return materialesService.getMateriales();
     }
 
     @GetMapping("/{id}")
-    public Optional<Impresiones> getById (@PathVariable("id") Long id){
-        return impresionesService.getImpresiones(id);
+    public Optional<Materiales> getById (@PathVariable("id") Long id){
+        return materialesService.getMateriales(id);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id){
-        impresionesService.delete(id);
+        materialesService.delete(id);
     }
 
     @PostMapping
-    public void create(@RequestBody Impresiones impresiones){
-        impresionesService.create(impresiones);
+    public void create(@RequestBody Materiales materiales){
+        materialesService.create(materiales);
     }
 
 
     @PostMapping("/createValidado")
-    public void RegistrarImpresiones(@RequestBody Impresiones impresiones){
-        this.impresionesService.createValidado(impresiones);
+    public void RegistrarMateriales(@RequestBody Materiales materiales){
+        this.materialesService.createValidado(materiales);
     }
 
 

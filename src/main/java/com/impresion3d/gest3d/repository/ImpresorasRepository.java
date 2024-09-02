@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ImpresorasRepository extends JpaRepository< Impresoras, Long>{
-    
-   //  @Query("SELECT * FROM Impresoras ")
-   // Optional<Impresoras> findImpresorasByName(String nombre);
-    
+
+    Optional<Impresoras> findImpresorasByNombre(String nombre);
+
 }

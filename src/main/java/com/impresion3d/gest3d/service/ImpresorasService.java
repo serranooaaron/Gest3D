@@ -1,5 +1,6 @@
 package com.impresion3d.gest3d.service;
 
+import com.impresion3d.gest3d.model.Materiales;
 import com.impresion3d.gest3d.repository.ImpresorasRepository;
 import com.impresion3d.gest3d.model.Impresoras;
 import java.util.List;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ImpresorasService extends GenericService <Impresoras, Long> {
+public class ImpresorasService{
     @Autowired
     private final ImpresorasRepository impresorasRepository;
 
@@ -17,22 +18,18 @@ public class ImpresorasService extends GenericService <Impresoras, Long> {
         this.impresorasRepository = impresorasRepository;
     }
 
-    @Override
-    public List<Impresoras> getAll() {
+    public List<Impresoras> getImpresoras() {
         return impresorasRepository.findAll();
     }
 
-    @Override
-    public Impresoras getById(Long id) {
-        return impresorasRepository.findById(id).orElse(null);
+
+    public Optional<Impresoras> getImpresoras(Long id) {
+        return impresorasRepository.findById(id);
     }
 
-    @Override
-    public Impresoras create(Impresoras impresoras) {
-        return impresorasRepository.save(impresoras);
-    }
 
-    @Override
+    public void create(Impresoras impresoras) { impresorasRepository.save(impresoras); }
+
     public Impresoras update(Long id, Impresoras impresoras) {
         if (impresorasRepository.existsById(id)) {
             return impresorasRepository.save(impresoras);
@@ -40,16 +37,17 @@ public class ImpresorasService extends GenericService <Impresoras, Long> {
         return null;
     }
 
-    @Override
+    public void createValidado(Impresoras impresoras) {  //Se genera validación la busqueda de impresiones.
+
+        Optional<Impresoras> res = impresorasRepository.findImpresorasByNombre(impresoras.getNombre());
+        if (res.isPresent()) {
+            throw new IllegalStateException("Ya existe el producto.");
+        }
+        impresorasRepository.save(impresoras);
+    }
+
+
     public void delete(Long id) {
         impresorasRepository.deleteById(id);
     }
-    
-//      public void newImpresoras(Impresoras impresoras) {
-//        Optional<Impresoras> res = impresorasRepository.findImpresorasByName(impresoras.getNom_impresora());
-//        if (res.isPresent()) {
-//            throw new IllegalStateException("Ya existe el producto.");
-//        }
-//        impresorasRepository.save(impresoras); 
-//    }
 }

@@ -18,28 +18,28 @@ public class RollosController {
 
     @GetMapping
     public List<Rollos> getAll (){
-        return RollosService.getRollos();
+        return rollosService.getRollos();
     }
 
     @GetMapping("/{id}")
     public Optional<Rollos> getById (@PathVariable("id") Long id){
-        return RollosService.getRollos(id);
+        return rollosService.getRollos(id);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id){
-        RollosService.delete(id);
+        rollosService.delete(id);
     }
 
     @PostMapping
     public void create(@RequestBody Rollos rollos){
-        RollosService.create(rollos);
+        rollosService.create(rollos);
     }
 
 
     @PostMapping("/createValidado")
-    public void RegistrarImpresiones(@RequestBody Impresiones impresiones){
-        this.impresionesService.createValidado(impresiones);
+    public void RegistrarRollos(@RequestBody Rollos rollos){
+        this.rollosService.createValidado(rollos);
     }
 
 
