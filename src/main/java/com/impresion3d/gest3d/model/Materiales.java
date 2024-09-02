@@ -5,30 +5,25 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Data
+@Entity // JPA CLASS - Identifica con BD
+@Data // GETTERS & SETTERS By Lombok
+@NoArgsConstructor// Constructor sin argumentos/var By Lombok
+@AllArgsConstructor// Constructor automatico de todos los argumentos By Lombok
 @Table
 public class Materiales {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long material_id;
+    private Long id;
+
     private String nombre;
     private String descripcion;
     private double metros_k;
     private String tipouso;
     private double resistencia;
-    
-    
-    public Materiales(Long material_id, String nombre, String descripcion, double metros_k, String tipouso, double resistencia) {
-        this.material_id = material_id;
-        this.nombre=nombre;
-        this.descripcion = descripcion;
-        this.metros_k = metros_k;
-        this.tipouso = tipouso;
-        this.resistencia = resistencia;
-    }
-    
-    
+
 }

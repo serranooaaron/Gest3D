@@ -1,6 +1,7 @@
 package com.impresion3d.gest3d.service;
 
 import com.impresion3d.gest3d.model.Piezas;
+import com.impresion3d.gest3d.model.Rollos;
 import com.impresion3d.gest3d.repository.PiezasRepository;
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PiezasService extends GenericService <Piezas, Long> {
+public class PiezasService  {
      @Autowired
     private final PiezasRepository piezasRepository;
 
@@ -17,39 +18,37 @@ public class PiezasService extends GenericService <Piezas, Long> {
         this.piezasRepository = piezasRepository;
     }
 
-    @Override
-    public List<Piezas> getAll() {
+
+    public List<Piezas> getPiezas() {
         return piezasRepository.findAll();
     }
 
-    @Override
-    public Piezas getById(Long id) {
-        return piezasRepository.findById(id).orElse(null);
+
+    public Optional<Piezas> getPiezas(Long id) {
+        return piezasRepository.findById(id);
     }
 
-    @Override
-    public Piezas create(Piezas pieza) {
-        return piezasRepository.save(pieza);
-    }
 
-    @Override
-    public Piezas update(Long id, Piezas pieza) {
+    public void create(Piezas piezas) { piezasRepository.save(piezas); }
+
+    public Piezas update(Long id, Piezas piezas) {
         if (piezasRepository.existsById(id)) {
-            return piezasRepository.save(pieza);
+            return piezasRepository.save(piezas);
         }
         return null;
     }
 
-    @Override
+    public void createValidado(Piezas piezas) {  //Se genera valida la busqueda de impresiones.
+
+        Optional<Piezas> res = piezasRepository.findPiezasByNombre(piezas.getNombre());
+        if (res.isPresent()) {
+            throw new IllegalStateException("Ya existe el producto.");
+        }
+        piezasRepository.save(piezas);
+    }
+
+
     public void delete(Long id) {
         piezasRepository.deleteById(id);
     }
-    
-//   public void newPiezas(Piezas piezas) {
-//    Optional<Piezas> res = piezasRepository.findPiezasByName(piezas.getNombre_pieza());
-//    if (res.isPresent()) {
-//        throw new IllegalStateException("Ya existe el producto.");
-//    }
-//    piezasRepository.save(piezas); 
-//}    
 }

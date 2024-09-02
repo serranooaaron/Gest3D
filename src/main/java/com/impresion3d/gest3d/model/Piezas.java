@@ -1,37 +1,32 @@
 package com.impresion3d.gest3d.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Data
+import java.util.List;
+
+@Entity // JPA CLASS - Identifica con BD
+@Data // GETTERS & SETTERS By Lombok
+@NoArgsConstructor// Constructor sin argumentos/var By Lombok
+@AllArgsConstructor// Constructor automatico de todos los argumentos By Lombok
 @Table
 public class Piezas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pieza_id;
+    private Long id;
+
+//    @OneToMany(mappedBy = "pieza")
+//    private List<Impresiones> impresiones;
 
     @ManyToOne
-    @JoinColumn(name = "IDimpresora")
-    private Impresoras IDimpresora;
+    @JoinColumn(name = "impresoras_id")
+    private Impresoras impresoras;
 
-    private String nombre_pieza;
+    private String nombre;
     private int calidad;
     private char archivo_gcode;
 
-    public Piezas(Long pieza_id, Impresoras IDimpresora, String nombre_pieza, int calidad, char archivo_gcode) {
-        this.pieza_id = pieza_id;
-        this.IDimpresora = IDimpresora;
-        this.nombre_pieza = nombre_pieza;
-        this.calidad = calidad;
-        this.archivo_gcode = archivo_gcode;
-    }
-    
-    
+
 }
