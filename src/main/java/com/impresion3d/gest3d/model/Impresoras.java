@@ -6,19 +6,26 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Data
+@Entity // JPA CLASS - Identifica con BD
+@Data // GETTERS & SETTERS By Lombok
+@NoArgsConstructor// Constructor sin argumentos/var By Lombok
+@AllArgsConstructor// Constructor automatico de todos los argumentos By Lombok
+@Table
 public class Impresoras {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long IDimpresora;
-    private String nom_impresora;
+    private Long id;
+    private String nombre;
 
     @ManyToOne
     @JoinColumn(name = "pieza_id")
-    private Piezas pieza_id;
+    private Piezas pieza;
 
     private String marca;
     private String modelo;
@@ -28,4 +35,7 @@ public class Impresoras {
     private double consumo_hora;
     private double horas_uso;
     private int ultimo_mantenimiento;
+
+
+
 }

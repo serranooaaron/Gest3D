@@ -1,32 +1,35 @@
 package com.impresion3d.gest3d.service;
 
 import com.impresion3d.gest3d.model.Materiales;
+import com.impresion3d.gest3d.model.Piezas;
 import com.impresion3d.gest3d.repository.MaterialesRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MaterialesService extends GenericService <Materiales, Long>{
+public class MaterialesService {
     @Autowired
-    private MaterialesRepository materialesRepository;
+    private final MaterialesRepository materialesRepository;
+    
+    @Autowired
+    public MaterialesService(MaterialesRepository materialesRepository) {
+        this.materialesRepository = materialesRepository;
+    }
 
-    @Override
-    public List<Materiales> getAll() {
+    public List<Materiales> getMateriales() {
         return materialesRepository.findAll();
     }
 
-    @Override
-    public Materiales getById(Long id) {
-        return materialesRepository.findById(id).orElse(null);
+
+    public Optional<Materiales> getMateriales(Long id) {
+        return materialesRepository.findById(id);
     }
 
-    @Override
-    public Materiales create(Materiales materiales) {
-        return materialesRepository.save(materiales);
-    }
 
-    @Override
+    public void create(Materiales materiales) { materialesRepository.save(materiales); }
+
     public Materiales update(Long id, Materiales materiales) {
         if (materialesRepository.existsById(id)) {
             return materialesRepository.save(materiales);
@@ -34,7 +37,16 @@ public class MaterialesService extends GenericService <Materiales, Long>{
         return null;
     }
 
-    @Override
+    public void createValidado(Materiales materiales) {  //Se genera validación la busqueda de impresiones.
+
+        Optional<Materiales> res = materialesRepository.findMaterialesByNombre(materiales.getNombre());
+        if (res.isPresent()) {
+            throw new IllegalStateException("Ya existe el producto.");
+        }
+        materialesRepository.save(materiales);
+    }
+
+
     public void delete(Long id) {
         materialesRepository.deleteById(id);
     }
