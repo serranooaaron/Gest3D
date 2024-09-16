@@ -11,22 +11,24 @@ import java.util.List;
 @Data // GETTERS & SETTERS By Lombok
 @NoArgsConstructor// Constructor sin argumentos/var By Lombok
 @AllArgsConstructor// Constructor automatico de todos los argumentos By Lombok
-@Table
-public class Piezas {
+@Table // Conecta Entity + BD - Se puede instanciar nombre de Tabla ej: {="rollosTable"} o utilizara por defecto nombre clase.
+public class Rollo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @OneToMany(mappedBy = "pieza")
+    private String nombre;
+    private String color;
+    private double peso_gr;
+    private double costo;
+
+
+//    @OneToMany(mappedBy = "rollo")
 //    private List<Impresiones> impresiones;
 
     @ManyToOne
-    @JoinColumn(name = "impresoras_id")
-    private Impresoras impresoras;
-
-    private String nombre;
-    private int calidad;
-    private char archivo_gcode;
+    @JoinColumn(name = "Material_id")
+    private Material material;
 
 
 }

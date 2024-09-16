@@ -1,6 +1,5 @@
 package com.impresion3d.gest3d.model;
 
-import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,25 +16,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor// Constructor sin argumentos/var By Lombok
 @AllArgsConstructor// Constructor automatico de todos los argumentos By Lombok
 @Table
-public class Impresiones {
-    
+public class Impresora {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "Pieza_id")
-    private Piezas pieza;
-
-    @ManyToOne
-    @JoinColumn(name = "Rollo_id")
-    private Rollos rollo;
-
     private String nombre;
-    private LocalDateTime fechaImpresion;
-    private float tiempo;
-    private float peso;
-    private float costo_kwh;
-    private double costo_pieza;
+
+    @ManyToOne
+    @JoinColumn(name = "pieza_id")
+    private Pieza pieza;
+
+    private String marca;
+    private String modelo;
+    private float alto_imp;
+    private float ancho_imp;
+    private float largo_imp;
+    private double consumo_hora;
+    private double horas_uso;
+    private Integer ultimo_mantenimiento;
+
+
 
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Agregar impresora</title>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto rounded border p-4 m-4">
+                <h2 class="text-center mb-5">Impresora nueva</h2>
+
+                <form method="post" enctype="multipart/form-data" th:object="${impresoraDTO}">
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Nombre de la impresora</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" th:field="${impresoraDTO.nombre}">
+                            <p th:if="${#fields.hasErrors('nombre')}" th:errorclass="text-danger" th:errors="${impresoraDTO.nombre}"></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Marca</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" th:field="${impresoraDTO.marca}">
+                            <p th:if="${#fields.hasErrors('marca')}" th:errorclass="text-danger" th:errors="${impresoraDTO.marca}"></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Modelo</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" th:field="${impresoraDTO.modelo}">
+                            <p th:if="${#fields.hasErrors('modelo')}" th:errorclass="text-danger" th:errors="${impresoraDTO.modelo}"></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Alto de la impresora</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" th:field="${impresoraDTO.alto_imp}">
+                            <p th:if="${#fields.hasErrors('alto_imp')}" th:errorclass="text-danger" th:errors="${impresoraDTO.alto_imp}"></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Ancho de la impresora</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" th:field="${impresoraDTO.ancho_imp}">
+                            <p th:if="${#fields.hasErrors('ancho_imp')}" th:errorclass="text-danger" th:errors="${impresoraDTO.ancho_imp}"></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Largo de la impresora</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" th:field="${impresoraDTO.largo_imp}">
+                            <p th:if="${#fields.hasErrors('largo_imp')}" th:errorclass="text-danger" th:errors="${impresoraDTO.largo_imp}"></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Consumo por hora</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" th:field="${impresoraDTO.consumo_hora}">
+                            <p th:if="${#fields.hasErrors('consumo_hora')}" th:errorclass="text-danger" th:errors="${impresoraDTO.consumo_hora}"></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Horas de uso</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" th:field="${impresoraDTO.horas_uso}">
+                            <p th:if="${#fields.hasErrors('horas_uso')}" th:errorclass="text-danger" th:errors="${impresoraDTO.horas_uso}"></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Ingrese el último mantenimiento</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" th:field="${impresoraDTO.ultimo_mantenimiento}">
+                            <p th:if="${#fields.hasErrors('ultimo_mantenimiento')}" th:errorclass="text-danger" th:errors="${impresoraDTO.ultimo_mantenimiento}"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="offset-sm-4 col-sm-4 d-grid">
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
+                        <div class="col-sm-4 d-grid">
+                            <a href="/impresoras" class="btn btn-outline-danger" role="button">Cancelar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

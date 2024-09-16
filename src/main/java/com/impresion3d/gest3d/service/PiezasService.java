@@ -1,7 +1,6 @@
 package com.impresion3d.gest3d.service;
 
-import com.impresion3d.gest3d.model.Piezas;
-import com.impresion3d.gest3d.model.Rollos;
+import com.impresion3d.gest3d.model.Pieza;
 import com.impresion3d.gest3d.repository.PiezasRepository;
 import java.util.List;
 import java.util.Optional;
@@ -19,32 +18,32 @@ public class PiezasService  {
     }
 
 
-    public List<Piezas> getPiezas() {
+    public List<Pieza> getPiezas() {
         return piezasRepository.findAll();
     }
 
 
-    public Optional<Piezas> getPiezas(Long id) {
+    public Optional<Pieza> getPiezas(Long id) {
         return piezasRepository.findById(id);
     }
 
 
-    public void create(Piezas piezas) { piezasRepository.save(piezas); }
+    public void create(Pieza pieza) { piezasRepository.save(pieza); }
 
-    public Piezas update(Long id, Piezas piezas) {
+    public Pieza update(Long id, Pieza pieza) {
         if (piezasRepository.existsById(id)) {
-            return piezasRepository.save(piezas);
+            return piezasRepository.save(pieza);
         }
         return null;
     }
 
-    public void createValidado(Piezas piezas) {  //Se genera valida la busqueda de impresiones.
+    public void createValidado(Pieza pieza) {  //Se genera valida la busqueda de impresiones.
 
-        Optional<Piezas> res = piezasRepository.findPiezasByNombre(piezas.getNombre());
+        Optional<Pieza> res = piezasRepository.findPiezasByNombre(pieza.getNombre());
         if (res.isPresent()) {
             throw new IllegalStateException("Ya existe el producto.");
         }
-        piezasRepository.save(piezas);
+        piezasRepository.save(pieza);
     }
 
 

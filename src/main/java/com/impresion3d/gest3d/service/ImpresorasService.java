@@ -1,8 +1,8 @@
 package com.impresion3d.gest3d.service;
 
-import com.impresion3d.gest3d.model.Materiales;
+import com.impresion3d.gest3d.model.Material;
 import com.impresion3d.gest3d.repository.ImpresorasRepository;
-import com.impresion3d.gest3d.model.Impresoras;
+import com.impresion3d.gest3d.model.Impresora;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,32 +18,32 @@ public class ImpresorasService{
         this.impresorasRepository = impresorasRepository;
     }
 
-    public List<Impresoras> getImpresoras() {
+    public List<Impresora> getImpresoras() {
         return impresorasRepository.findAll();
     }
 
 
-    public Optional<Impresoras> getImpresoras(Long id) {
+    public Optional<Impresora> getImpresoras(Long id) {
         return impresorasRepository.findById(id);
     }
 
 
-    public void create(Impresoras impresoras) { impresorasRepository.save(impresoras); }
+    public void create(Impresora impresora) { impresorasRepository.save(impresora); }
 
-    public Impresoras update(Long id, Impresoras impresoras) {
+    public Impresora update(Long id, Impresora impresora) {
         if (impresorasRepository.existsById(id)) {
-            return impresorasRepository.save(impresoras);
+            return impresorasRepository.save(impresora);
         }
         return null;
     }
 
-    public void createValidado(Impresoras impresoras) {  //Se genera validación la busqueda de impresiones.
+    public void createValidado(Impresora impresora) {  //Se genera validación la busqueda de impresiones.
 
-        Optional<Impresoras> res = impresorasRepository.findImpresorasByNombre(impresoras.getNombre());
+        Optional<Impresora> res = impresorasRepository.findImpresorasByNombre(impresora.getNombre());
         if (res.isPresent()) {
             throw new IllegalStateException("Ya existe el producto.");
         }
-        impresorasRepository.save(impresoras);
+        impresorasRepository.save(impresora);
     }
 
 

@@ -1,7 +1,7 @@
 package com.impresion3d.gest3d.controller;
 
-import com.impresion3d.gest3d.model.Impresiones;
-import com.impresion3d.gest3d.model.Rollos;
+import com.impresion3d.gest3d.model.Impresion;
+import com.impresion3d.gest3d.model.Rollo;
 import com.impresion3d.gest3d.service.RollosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +17,12 @@ public class RollosController {
     private RollosService rollosService;
 
     @GetMapping
-    public List<Rollos> getAll (){
+    public List<Rollo> getAll (){
         return rollosService.getRollos();
     }
 
     @GetMapping("/{id}")
-    public Optional<Rollos> getById (@PathVariable("id") Long id){
+    public Optional<Rollo> getById (@PathVariable("id") Long id){
         return rollosService.getRollos(id);
     }
 
@@ -32,14 +32,14 @@ public class RollosController {
     }
 
     @PostMapping
-    public void create(@RequestBody Rollos rollos){
-        rollosService.create(rollos);
+    public void create(@RequestBody Rollo rollo){
+        rollosService.create(rollo);
     }
 
 
     @PostMapping("/createValidado")
-    public void RegistrarRollos(@RequestBody Rollos rollos){
-        this.rollosService.createValidado(rollos);
+    public void RegistrarRollos(@RequestBody Rollo rollo){
+        this.rollosService.createValidado(rollo);
     }
 
 

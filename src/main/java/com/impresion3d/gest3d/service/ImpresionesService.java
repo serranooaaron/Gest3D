@@ -1,6 +1,6 @@
 package com.impresion3d.gest3d.service;
 
-import com.impresion3d.gest3d.model.Impresiones;
+import com.impresion3d.gest3d.model.Impresion;
 import com.impresion3d.gest3d.repository.ImpresionesRepository;
 import java.util.List;
 import java.util.Optional;
@@ -21,32 +21,32 @@ public class ImpresionesService{
     }
 
 
-    public List<Impresiones> getImpresiones() {
+    public List<Impresion> getImpresiones() {
         return impresionesRepository.findAll();
     }
 
 
-    public Optional<Impresiones> getImpresiones(Long id) {
+    public Optional<Impresion> getImpresiones(Long id) {
        return impresionesRepository.findById(id);
     }
 
 
-    public void create(Impresiones impresiones){ impresionesRepository.save(impresiones); }
+    public void create(Impresion impresiones){ impresionesRepository.save(impresiones); }
 
-    public Impresiones update(Long id, Impresiones impresiones) {
+    public Impresion update(Long id, Impresion impresion) {
         if (impresionesRepository.existsById(id)) {
-            return impresionesRepository.save(impresiones);
+            return impresionesRepository.save(impresion);
         }
         return null;
     }
 
-    public void createValidado(Impresiones impresiones) {  //Se genera valida la busqueda de impresiones.
+    public void createValidado(Impresion impresion) {  //Se genera valida la busqueda de impresiones.
 
-        Optional<Impresiones> res = impresionesRepository.findImpresionesByNombre(impresiones.getNombre());
+        Optional<Impresion> res = impresionesRepository.findImpresionesByNombre(impresion.getNombre());
         if (res.isPresent()) {
             throw new IllegalStateException("Ya existe el producto.");
         }
-        impresionesRepository.save(impresiones);
+        impresionesRepository.save(impresion);
     }
 
 
