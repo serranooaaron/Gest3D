@@ -54,6 +54,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Nombre</th>
                     <th>Material</th>
                     <th>Color</th>
                     <th>Peso gr</th>
@@ -63,10 +64,11 @@
             </thead>
             <tbody>
             <tr th:if = "${rollos.size() == 0 }">
-                <td colspan="6" class="text-center">No hay rollos disponibles.</td>
+                <td colspan="8" class="text-center">No hay rollos disponibles.</td>
             </tr>
                 <tr th:each="rollo : ${rollos}">
                     <td th:text="${rollo.id}"></td>
+                    <td th:text="${rollo.nombre}"></td>
                     <td th:text="${rollo.material != null} ? ${rollo.material.descripcion} : 'Sin material'"></td>
                     <td th:text="${rollo.color}"></td>
                     <td th:text="${rollo.peso_gr}"></td>

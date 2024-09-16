@@ -68,7 +68,7 @@
             </thead>
             <tbody>
                 <tr th:if= "${impresoras.size() == 0 }">
-                    <td colspan="11" class="text-center">No hay impresoras disponibles.</td>
+                    <td colspan="12" class="text-center">No hay impresoras disponibles.</td>
                 </tr>
                 <tr th:each="impresora : ${impresoras}">
                     <td th:text="${impresora.id}"></td>

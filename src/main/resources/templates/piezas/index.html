@@ -54,7 +54,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Pieza</th>
+                    <th>Nombre</th>
                     <th>Calidad</th>
                     <th>Archivo gcode</th>
                     <th>Impresora</th>
@@ -63,7 +63,7 @@
             </thead>
             <tbody>
                 <tr th:if= "${piezas.size() == 0 }">
-                    <td colspan="6" class="text-center">No hay piezas disponibles.</td>
+                    <td colspan="7" class="text-center">No hay piezas disponibles.</td>
                 </tr>
                 <tr th:each="pieza : ${piezas}">
                     <td th:text="${pieza.id}"></td>

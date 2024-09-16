@@ -6,6 +6,7 @@ import com.impresion3d.gest3d.model.Pieza;
 import com.impresion3d.gest3d.model.PiezaDTO;
 import com.impresion3d.gest3d.service.ImpresorasService;
 import com.impresion3d.gest3d.service.PiezasService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,11 @@ public class PiezasController {
     private PiezasService piezasService;
     @Autowired
     private ImpresorasService impresorasService;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("ImpresorasService inyectado: " + impresorasService);
+    }
 
     @GetMapping("/api") // Obtener Lista de piezas por API
     public List<Pieza> getAll() {

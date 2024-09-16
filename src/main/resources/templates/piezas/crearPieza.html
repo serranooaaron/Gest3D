@@ -38,12 +38,12 @@
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Impresora</label>
                         <div class="col-sm-8">
-                            <div th:if="${#lists.isEmpty(impresoras)}">
+                            <div th:if="${#lists.isEmpty(impresora)}">
                                 <p class="text-danger">No hay impresoras disponibles</p>
                             </div>
-                            <div th:unless="${#lists.isEmpty(impresoras)}">
+                            <div th:unless="${#lists.isEmpty(impresora)}">
                                 <select th:field="${piezaDTO.impresora}" class="form-control">
-                                    <option th:each="impresora : ${impresoras}"
+                                    <option th:each="impresora : ${impresora}"
                                             th:value="${impresora.id}"
                                             th:text="${impresora.nombre}"></option>
                                 </select>
