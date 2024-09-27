@@ -1,9 +1,6 @@
 package com.impresion3d.gest3d.controller;
 
-import com.impresion3d.gest3d.model.Impresion;
-import com.impresion3d.gest3d.model.ImpresionDTO;
-import com.impresion3d.gest3d.model.Pieza;
-import com.impresion3d.gest3d.model.Rollo;
+import com.impresion3d.gest3d.model.*;
 import com.impresion3d.gest3d.service.ImpresionesService;
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +29,8 @@ public class ImpresionesController{
 
     @GetMapping({"","/"})
     public String getAll (Model model){ // Mediante este Get, podremos visualizar cada uno de los models en el index "Impresiones"
-        List <Impresion> impresion = impresionesService.getImpresiones();
-        model.addAttribute("impresion", impresion);
+        List<Impresion> impresiones = impresionesService.getImpresiones();
+        model.addAttribute("impresiones", impresiones);
         List<Rollo> rollo = rollosService.getRollos();
         model.addAttribute("rollos", rollo);
         List<Pieza> pieza = piezasService.getPiezas();
@@ -54,16 +51,27 @@ public class ImpresionesController{
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute ImpresionDTO impresionDTO, BindingResult resultado) {
+    public String create(@ModelAttribute @Validated ImpresionDTO impresionDTO, BindingResult resultado, Model model) {
         if (resultado.hasErrors()) {
-            return "/impresion/crearImpresion.html";
+            List<Rollo> rollos = rollosService.getRollos();
+            List<Pieza> piezas = piezasService.getPiezas();
+            model.addAttribute("rollos", rollos);
+            model.addAttribute("piezas", piezas);
+            return "/impresiones/crearImpresion.html";
         }
         Impresion impresion = new Impresion();
-        Optional<Rollo> rollos = rollosService.getRollos(impresionDTO.getRollo());
-        Optional<Pieza> piezas = piezasService.getPiezas(impresionDTO.getPieza());
+        Optional<Rollo> rollo = rollosService.getRollos(impresionDTO.getRollo());
+        Optional<Pieza> pieza = piezasService.getPiezas(impresionDTO.getPieza());
 
-        impresionesService.createValidado(impresion);
-        return "redirect:/impresiones";
+        if (rollo.isPresent() && pieza.isPresent()) {
+            impresion.setRollo(rollo.get());
+            impresion.setPieza(pieza.get());
+            // Set other fields
+            impresionesService.createValidado(impresion);
+            return "redirect:/impresiones";
+        }
+        // Handle the case where rollo or pieza is not found
+        return "redirect:/impresiones/create";
     }
     //    @PostMapping("/createValidado")
 //    public void RegistrarImpresiones(@RequestBody Impresiones impresiones){
@@ -80,6 +88,28 @@ public class ImpresionesController{
         impresionesService.delete(id);
     }
 
+    @GetMapping("/edit")
+    public String mostrarPagEditar(Model model, @RequestParam long id) {
+        try {
+            Impresion impresion = impresionesService.getImpresiones(id).orElseThrow(() -> new RuntimeException("Impresion no encontrado"));
+            ImpresionDTO impresionDTO = new ImpresionDTO();
+
+            // Asignar valores a DTO
+            impresionDTO.setNombre(impresion.getNombre());
+            impresionDTO.setPeso(impresion.getPeso());
+            impresionDTO.setCosto_pieza(impresion.getCosto_pieza());
+            impresionDTO.setTiempo(impresion.getTiempo());
+            impresionDTO.setCosto_kwh(impresion.getCosto_kwh());
+            impresionDTO.setFechaImpresion(impresion.getFechaImpresion());
+
+            model.addAttribute("impresionDTO", impresionDTO);
+            model.addAttribute("id", id);  // Agregar el ID al modelo para usarlo en el formulario
+        } catch (Exception e) {
+            System.out.println("Excepción: " + e.getMessage());
+            return "redirect:/impresiones";
+        }
+        return "/impresiones/editarImpresion";
+    }
 
     @PostMapping("/edit")
     public String actualizarImpresion(Model model, @RequestParam long id,

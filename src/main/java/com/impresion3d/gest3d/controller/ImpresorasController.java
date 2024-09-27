@@ -106,6 +106,7 @@ public class ImpresorasController {
             impresora.setConsumo_hora(impresoraDTO.getConsumo_hora());
 
             model.addAttribute("impresoraDTO", impresoraDTO);
+            model.addAttribute("id",id);
         }catch (Exception e){
             System.out.println("Excepcion: " + e.getMessage());
             return "redirect:/impresoras";

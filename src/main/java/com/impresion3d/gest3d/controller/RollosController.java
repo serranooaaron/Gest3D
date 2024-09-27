@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@ControllerAdvice
 @RequestMapping(path = "rollos")
 public class RollosController {
 
@@ -89,12 +90,13 @@ public class RollosController {
         return "redirect:/rollos";
     }
 
-    @PostMapping("/edit")
+    @GetMapping("/edit")
     public String mostrarPagEditar(Model model, @RequestParam long id) {
         try {
-            Rollo rollo = rollosService.getRollos(id).orElseThrow(() -> new RuntimeException("Rollo no encontrado"));
+            Rollo rollo = rollosService.getRollos(id).get();
             RolloDTO rolloDTO = new RolloDTO();
-
+            List<Material> material = materialesService.getMateriales();
+            model.addAttribute("material", material);
             // Asignar valores a DTO
             rolloDTO.setNombre(rollo.getNombre());
             rolloDTO.setColor(rollo.getColor());
@@ -102,25 +104,28 @@ public class RollosController {
             rolloDTO.setPeso_gr(rollo.getPeso_gr());
 
             model.addAttribute("rolloDTO", rolloDTO);
+            model.addAttribute("id", id);  // Agregar el ID al modelo para usarlo en el formulario
         } catch (Exception e) {
             System.out.println("Excepción: " + e.getMessage());
             return "redirect:/rollos";
         }
-        return "rollos/editarRollo";
+        return "/rollos/editarRollo";
     }
 
-    @PostMapping("/edit/{id}")
-    public String actualizarRollo(Model model, @ModelAttribute RolloDTO rolloDTO, @RequestParam long id, BindingResult resultado) {
+
+    @PostMapping("/edit")
+    public String actualizarRollo(@RequestParam long id, @ModelAttribute RolloDTO rolloDTO, BindingResult resultado) {
         if (resultado.hasErrors()) {
-            return "rollos/editarRollo";
+            return "/rollos/editarRollo";
         }
-        Rollo rollo = rollosService.getRollos(id).orElseThrow(() -> new RuntimeException("Rollo no encontrado"));
 
-        rolloDTO.setNombre(rollo.getNombre());
-        rolloDTO.setColor(rollo.getColor());
-        rolloDTO.setCosto(rollo.getCosto());
-        rolloDTO.setPeso_gr(rollo.getPeso_gr());
+        Rollo rollo = rollosService.getRollos(id).get();
 
+        // Actualizar el rollo con los datos del DTO
+        rollo.setNombre(rolloDTO.getNombre());
+        rollo.setColor(rolloDTO.getColor());
+        rollo.setCosto(rolloDTO.getCosto());
+        rollo.setPeso_gr(rolloDTO.getPeso_gr());
 
         rollosService.createValidado(rollo);
         return "redirect:/rollos";
@@ -141,8 +146,5 @@ public class RollosController {
         }
         return "redirect:/rollos";
     }
-
-
-
 
 }

@@ -66,10 +66,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:if= "${impresion.size() == 0 }">
+                <tr th:if="${#lists.isEmpty(impresiones)}">
                     <td colspan="10" class="text-center">No hay impresiones disponibles.</td>
                 </tr>
-                <tr th:each="impresion : ${impresion}">
+                <tr th:each="impresion : ${impresiones}">
                     <td th:text="${impresion.id}"></td>
                     <td th:text="${impresion.pieza.nombre}"></td>
                     <td th:text="${impresion.rollo.id}"></td>

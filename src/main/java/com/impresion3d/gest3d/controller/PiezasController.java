@@ -108,6 +108,7 @@ public class PiezasController {
 
 
             model.addAttribute("piezaDTO", piezaDTO);
+            model.addAttribute("id",id);
         } catch (Exception e) {
             System.out.println("Excepción: " + e.getMessage());
             return "redirect:/piezas";

@@ -69,7 +69,7 @@ public class MaterialesController {
         return "redirect:/materiales";
     }
 
-    @PostMapping("/edit")
+    @GetMapping("/edit")
     public String mostrarPagEditar(Model model, @RequestParam long id){
         try {
             Material material = materialesService.getMateriales(id).orElseThrow(() -> new RuntimeException("Material no encontrado"));
@@ -80,10 +80,12 @@ public class MaterialesController {
             materialDTO.setDescripcion(material.getDescripcion());
             materialDTO.setResistencia(material.getResistencia());
             materialDTO.setMetros_k(material.getMetros_k());
+
             model.addAttribute("materialDTO", materialDTO);
+            model.addAttribute("id",id);
         } catch (Exception e) {
             System.out.println("Excepción: " + e.getMessage());
-            return "redirect:/materiales";
+            return "redirect:/materiales/editarMaterial";
         }
         return "materiales/editarMaterial";
     }
@@ -95,13 +97,13 @@ public class MaterialesController {
         if(resultado.hasErrors()){return "materiales/editarMaterial";}
         Material material = materialesService.getMateriales(id).orElseThrow(() -> new RuntimeException("Impresora No encontrada"));
 
-        material.setNombre(materialDTO.getNombre());
-        material.setTipoUso(materialDTO.getTipoUso());
-        material.setDescripcion(materialDTO.getDescripcion());
-        material.setResistencia(materialDTO.getResistencia());
-        material.setMetros_k(materialDTO.getMetros_k());;
+        materialDTO.setNombre(material.getNombre());
+        materialDTO.setTipoUso(material.getTipoUso());
+        materialDTO.setDescripcion(material.getDescripcion());
+        materialDTO.setResistencia(material.getResistencia());
+        materialDTO.setMetros_k(material.getMetros_k());;
 
-        materialesService.updateValidado(material);
+        materialesService.create(material);
         return "redirect:/materiales";
     }
 
