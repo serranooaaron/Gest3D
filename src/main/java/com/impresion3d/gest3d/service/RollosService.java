@@ -1,8 +1,6 @@
 package com.impresion3d.gest3d.service;
 
-import com.impresion3d.gest3d.model.Impresiones;
-import com.impresion3d.gest3d.model.Rollos;
-import com.impresion3d.gest3d.repository.ImpresionesRepository;
+import com.impresion3d.gest3d.model.Rollo;
 import com.impresion3d.gest3d.repository.RollosRepository;
 import java.util.List;
 import java.util.Optional;
@@ -21,32 +19,32 @@ public class RollosService  {
 
 
 
-    public List<Rollos> getRollos() {
+    public List<Rollo> getRollos() {
         return rollosRepository.findAll();
     }
 
 
-    public Optional<Rollos> getRollos(Long id) {
+    public Optional<Rollo> getRollos(Long id) {
         return rollosRepository.findById(id);
     }
 
 
-    public void create(Rollos rollos) { rollosRepository.save(rollos); }
+    public void create(Rollo rollo) { rollosRepository.save(rollo); }
 
-    public Rollos update(Long id, Rollos rollos) {
+    public Rollo update(Long id, Rollo rollo) {
         if (rollosRepository.existsById(id)) {
-            return rollosRepository.save(rollos);
+            return rollosRepository.save(rollo);
         }
         return null;
     }
 
-    public void createValidado(Rollos rollos) {  //Se genera valida la busqueda de impresiones.
+    public void createValidado(Rollo rollo) {  //Se genera valida la busqueda de impresiones.
 
-        Optional<Rollos> res = rollosRepository.findRollosByNombre(rollos.getNombre());
+        Optional<Rollo> res = rollosRepository.findRollosByNombre(rollo.getNombre());
         if (res.isPresent()) {
             throw new IllegalStateException("Ya existe el producto.");
         }
-        rollosRepository.save(rollos);
+        rollosRepository.save(rollo);
     }
 
 

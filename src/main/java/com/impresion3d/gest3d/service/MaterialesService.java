@@ -1,7 +1,6 @@
 package com.impresion3d.gest3d.service;
 
-import com.impresion3d.gest3d.model.Materiales;
-import com.impresion3d.gest3d.model.Piezas;
+import com.impresion3d.gest3d.model.Material;
 import com.impresion3d.gest3d.repository.MaterialesRepository;
 import java.util.List;
 import java.util.Optional;
@@ -18,34 +17,44 @@ public class MaterialesService {
         this.materialesRepository = materialesRepository;
     }
 
-    public List<Materiales> getMateriales() {
+    public List<Material> getMateriales() {
         return materialesRepository.findAll();
     }
 
 
-    public Optional<Materiales> getMateriales(Long id) {
+    public Optional<Material> getMateriales(Long id) {
         return materialesRepository.findById(id);
     }
 
 
-    public void create(Materiales materiales) { materialesRepository.save(materiales); }
+    public void create(Material material) { materialesRepository.save(material); }
 
-    public Materiales update(Long id, Materiales materiales) {
+    public Material update(Long id, Material material) {
         if (materialesRepository.existsById(id)) {
-            return materialesRepository.save(materiales);
+            return materialesRepository.save(material);
         }
         return null;
     }
 
-    public void createValidado(Materiales materiales) {  //Se genera validación la busqueda de impresiones.
+    public void createValidado(Material material) {  //Se genera validación la busqueda de impresiones.
 
-        Optional<Materiales> res = materialesRepository.findMaterialesByNombre(materiales.getNombre());
+        Optional<Material> res = materialesRepository.findMaterialesByNombre(material.getNombre());
         if (res.isPresent()) {
             throw new IllegalStateException("Ya existe el producto.");
         }
-        materialesRepository.save(materiales);
+        materialesRepository.save(material);
     }
+    public void updateValidado(Material material) {
+        // Verifica si el material con el mismo nombre ya existe y no es el mismo que el que estamos actualizando
+        Optional<Material> res = materialesRepository.findMaterialesByNombre(material.getNombre());
 
+        if (res.isPresent() && !res.get().getId().equals(material.getId())) {
+            throw new IllegalStateException("Ya existe un producto con ese nombre.");
+        }
+
+        // Actualiza el material si la validación pasa
+        materialesRepository.save(material);
+    }
 
     public void delete(Long id) {
         materialesRepository.deleteById(id);
