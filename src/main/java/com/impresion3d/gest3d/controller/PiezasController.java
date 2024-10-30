@@ -7,6 +7,8 @@ import com.impresion3d.gest3d.model.PiezaDTO;
 import com.impresion3d.gest3d.service.ImpresorasService;
 import com.impresion3d.gest3d.service.PiezasService;
 import jakarta.annotation.PostConstruct;
+import jakarta.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,8 +96,8 @@ public class PiezasController {
         return "redirect:/piezas";
     }
 
-    @PostMapping("/edit")
-    public String mostrarPagEditar(Model model, @RequestParam long id) {
+    @GetMapping("/edit")
+    public String mostrarPagEditar(Model model, @RequestParam("id") long id) {
         try {
             Pieza pieza = piezasService.getPiezas(id).orElseThrow(() -> new RuntimeException("Pieza no encontrada"));
             PiezaDTO piezaDTO = new PiezaDTO();
@@ -108,6 +110,7 @@ public class PiezasController {
 
 
             model.addAttribute("piezaDTO", piezaDTO);
+            model.addAttribute("id", id);
         } catch (Exception e) {
             System.out.println("Excepción: " + e.getMessage());
             return "redirect:/piezas";
@@ -116,29 +119,29 @@ public class PiezasController {
     }
 
     @PostMapping("/edit/{id}")
-    public String actualizarPieza(Model model, @ModelAttribute PiezaDTO piezaDTO, @RequestParam long id, BindingResult resultado) {
+    public String actualizarPieza(Model model, @ModelAttribute PiezaDTO piezaDTO, @RequestParam("id") long id, BindingResult resultado) {
         if (resultado.hasErrors()) {
             return "piezas/editarPieza";
         }
         Pieza pieza = piezasService.getPiezas(id).orElseThrow(() -> new RuntimeException("Pieza no encontrada"));
 
-        piezaDTO.setNombre(pieza.getNombre());
-        piezaDTO.setCalidad(pieza.getCalidad());
-        piezaDTO.setArchivo_gcode(pieza.getArchivo_gcode());
+        pieza.setNombre(piezaDTO.getNombre());
+        pieza.setCalidad(piezaDTO.getCalidad());
+        pieza.setArchivo_gcode(piezaDTO.getArchivo_gcode());
 
 
 
-        piezasService.createValidado(pieza);
+        piezasService.create(pieza);
         return "redirect:/piezas";
     }
 
     @DeleteMapping("/api/{id}") // Eliminar por API
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@RequestParam("id") Long id) {
         piezasService.delete(id);
     }
 
     @GetMapping("/delete")
-    public String eliminarPieza(long id) {
+    public String eliminarPieza(@RequestParam("id")long id) {
         try {
             Pieza pieza = piezasService.getPiezas(id).get();
             piezasService.delete(pieza.getId());

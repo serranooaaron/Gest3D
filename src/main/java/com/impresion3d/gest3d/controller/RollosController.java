@@ -39,8 +39,8 @@ public class RollosController {
     public String mostrarPaginaRollos(Model model) {
         List<Rollo> rollos = rollosService.getRollos();
         model.addAttribute("rollos", rollos);
-        List<Material> material = materialesService.getMateriales();
-        model.addAttribute("material", material);
+        List<Material> materiales = materialesService.getMateriales();
+        model.addAttribute("materiales", materiales);
 
         return "rollos/index";
     }
@@ -59,8 +59,8 @@ public class RollosController {
     public String mostrarPagCrear(Model model) {
         RolloDTO rolloDTO = new RolloDTO();
         model.addAttribute("rolloDTO", rolloDTO);
-        List<Material> material = materialesService.getMateriales();
-        model.addAttribute("material", material);
+        List<Material> materiales = materialesService.getMateriales();
+        model.addAttribute("materiales", materiales);
 
         return "/rollos/crearRollo";
     }
@@ -89,8 +89,8 @@ public class RollosController {
         return "redirect:/rollos";
     }
 
-    @PostMapping("/edit")
-    public String mostrarPagEditar(Model model, @RequestParam long id) {
+    @GetMapping("/edit")
+    public String mostrarPagEditar(Model model, @RequestParam("id") long id) {
         try {
             Rollo rollo = rollosService.getRollos(id).orElseThrow(() -> new RuntimeException("Rollo no encontrado"));
             RolloDTO rolloDTO = new RolloDTO();
@@ -100,8 +100,11 @@ public class RollosController {
             rolloDTO.setColor(rollo.getColor());
             rolloDTO.setCosto(rollo.getCosto());
             rolloDTO.setPeso_gr(rollo.getPeso_gr());
+            //rolloDTO.setMaterial(rollo.getMaterial());
 
             model.addAttribute("rolloDTO", rolloDTO);
+            model.addAttribute("id", id);
+            model.addAttribute("materiales", materialesService.getMateriales()); // Asegúrate de pasar la lista de materiales
         } catch (Exception e) {
             System.out.println("Excepción: " + e.getMessage());
             return "redirect:/rollos";
@@ -110,29 +113,29 @@ public class RollosController {
     }
 
     @PostMapping("/edit/{id}")
-    public String actualizarRollo(Model model, @ModelAttribute RolloDTO rolloDTO, @RequestParam long id, BindingResult resultado) {
+    public String actualizarRollo(Model model, @ModelAttribute RolloDTO rolloDTO, @PathVariable("id") long id, BindingResult resultado) {
         if (resultado.hasErrors()) {
             return "rollos/editarRollo";
         }
         Rollo rollo = rollosService.getRollos(id).orElseThrow(() -> new RuntimeException("Rollo no encontrado"));
 
-        rolloDTO.setNombre(rollo.getNombre());
-        rolloDTO.setColor(rollo.getColor());
-        rolloDTO.setCosto(rollo.getCosto());
-        rolloDTO.setPeso_gr(rollo.getPeso_gr());
+        rollo.setNombre(rolloDTO.getNombre());
+        rollo.setColor(rolloDTO.getColor());
+        rollo.setCosto(rolloDTO.getCosto());
+        rollo.setPeso_gr(rolloDTO.getPeso_gr());
 
 
-        rollosService.createValidado(rollo);
+        rollosService.create(rollo);
         return "redirect:/rollos";
     }
 
     @DeleteMapping("/api/{id}") // Eliminar por API
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@RequestParam("id") Long id) {
         rollosService.delete(id);
     }
 
     @GetMapping("/delete")
-    public String eliminarRollo(long id) {
+    public String eliminarRollo(@RequestParam("id")long id) {
         try {
             Rollo rollo = rollosService.getRollos(id).get();
             rollosService.delete(rollo.getId());

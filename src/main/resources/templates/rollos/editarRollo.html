@@ -17,14 +17,14 @@
                     <div class="row mb-3">
                         <label  class="col-sm-4 col-form-label">Id</label>
                         <div class="col-sm-8">
-                            <input  readonly class="form-control-plaintext" th:field="${rollo.rollo_id}">
+                            <input  readonly class="form-control-plaintext" th:field="${id}">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Material</label>
                         <div class="col-sm-8">
                             <select id="id" th:field="${rolloDTO.material}" class="form-control">
-                                <option th:each="material : ${materiales}"  th:value="${material.id}" th:text="${material.descripcion}" th:selected="${material.id == rolloDTO.material}"></option>
+                                <option th:each="material : ${materiales}" th:value="${material.id}" th:text="${material.descripcion}" th:selected="${material.id == rolloDTO.material}"></option>
                             </select>
                             <p th:if="${#fields.hasErrors('material')}" th:errorclass="text-danger" th:errors="${rolloDTO.material}"></p>
                         </div>

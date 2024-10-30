@@ -28,10 +28,11 @@ public class MaterialesController {
         return materialesService.getMateriales(id);
     }
 
-    @GetMapping({"","/"})
+    @GetMapping({"", "/"})
     public String mostrarPaginaMateriales(Model model){
         List<Material> materiales = materialesService.getMateriales();
         model.addAttribute("materiales", materiales);
+       
         return "materiales/index";
     }
 
@@ -58,18 +59,18 @@ public class MaterialesController {
         Material material = new Material();
 
 
-        materialDTO.setNombre(material.getNombre());
-        materialDTO.setTipoUso(material.getTipoUso());
-        materialDTO.setDescripcion(material.getDescripcion());
-        materialDTO.setMetros_k(material.getMetros_k());
-        materialDTO.setResistencia(material.getResistencia());
+        material.setNombre(materialDTO.getNombre());
+        material.setTipoUso(materialDTO.getTipoUso());
+        material.setDescripcion(materialDTO.getDescripcion());
+        material.setMetros_k(materialDTO.getMetros_k());
+        material.setResistencia(materialDTO.getResistencia());
 
         materialesService.create(material);
 
         return "redirect:/materiales";
     }
 
-    @PostMapping("/edit")
+    @GetMapping("/edit")
     public String mostrarPagEditar(Model model, @RequestParam long id){
         try {
             Material material = materialesService.getMateriales(id).orElseThrow(() -> new RuntimeException("Material no encontrado"));
@@ -80,6 +81,8 @@ public class MaterialesController {
             materialDTO.setDescripcion(material.getDescripcion());
             materialDTO.setResistencia(material.getResistencia());
             materialDTO.setMetros_k(material.getMetros_k());
+
+            model.addAttribute("id", id);
             model.addAttribute("materialDTO", materialDTO);
         } catch (Exception e) {
             System.out.println("Excepción: " + e.getMessage());
@@ -107,12 +110,12 @@ public class MaterialesController {
 
 
     @DeleteMapping("/api/{id}") // Delete por API
-    public void delete(@PathVariable("id") Long id){
+    public void delete(@RequestParam("id") Long id){
         materialesService.delete(id);
     }
 
     @GetMapping("/delete")
-    public String eliminarMaterial(long id) {
+    public String eliminarMaterial(@RequestParam("id")long id) {
         try {
             Material material = materialesService.getMateriales(id).get();
             materialesService.delete(material.getId());

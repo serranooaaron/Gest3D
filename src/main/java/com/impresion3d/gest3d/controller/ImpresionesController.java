@@ -113,7 +113,7 @@ public class ImpresionesController{
     }
 
     @GetMapping("/delete")
-    public String eliminarImpresion(@RequestParam long id) {
+    public String eliminarImpresion(@RequestParam("id") long id) {
 
         try {
             Impresion impresion = impresionesService.getImpresiones(id).orElseThrow(() -> new RuntimeException("Impresión no encontrada"));

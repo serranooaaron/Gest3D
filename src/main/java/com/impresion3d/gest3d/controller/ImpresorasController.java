@@ -88,7 +88,7 @@ public class ImpresorasController {
 
 
 
-    @PostMapping("/edit")
+    @GetMapping("/edit")
     public String mostrarPagEditar(Model model, @RequestParam long id){
 
         try {
@@ -105,6 +105,7 @@ public class ImpresorasController {
             impresora.setHoras_uso(impresoraDTO.getHoras_uso());
             impresora.setConsumo_hora(impresoraDTO.getConsumo_hora());
 
+            model.addAttribute("id", id);
             model.addAttribute("impresoraDTO", impresoraDTO);
         }catch (Exception e){
             System.out.println("Excepcion: " + e.getMessage());
@@ -134,12 +135,12 @@ public class ImpresorasController {
 
 
     @DeleteMapping("/api/{id}") // API DELETE
-    public void delete(@PathVariable("id") Long id){
+    public void delete(@RequestParam("id") Long id){
         impresorasService.delete(id);
     }
 
     @GetMapping("/delete")
-    public String eliminarImpresora(@RequestParam Long id){
+    public String eliminarImpresora(@RequestParam("id") Long id){
         try{
             Impresora impresora = impresorasService.getImpresoras(id).get();
             impresorasService.delete(impresora.getId());
