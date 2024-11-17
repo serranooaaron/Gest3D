@@ -112,7 +112,7 @@ public class RollosController {
         return "rollos/editarRollo";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/edit")
     public String actualizarRollo(Model model, @ModelAttribute RolloDTO rolloDTO, @PathVariable("id") long id, BindingResult resultado) {
         if (resultado.hasErrors()) {
             return "rollos/editarRollo";

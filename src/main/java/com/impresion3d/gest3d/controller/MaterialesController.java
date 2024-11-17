@@ -92,7 +92,7 @@ public class MaterialesController {
     }
 
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/edit")
     public String actualizarMaterial(Model model, @ModelAttribute MaterialDTO materialDTO, @RequestParam long id, BindingResult resultado){
 
         if(resultado.hasErrors()){return "materiales/editarMaterial";}

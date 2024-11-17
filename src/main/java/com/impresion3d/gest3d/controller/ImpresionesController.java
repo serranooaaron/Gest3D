@@ -104,7 +104,7 @@ public class ImpresionesController{
             impresion.setCosto_kwh(impresionDTO.getCosto_kwh());
             impresion.setCosto_pieza(impresionDTO.getCosto_pieza());
 
-            impresionesService.createValidado(impresion);
+            impresionesService.create(impresion);
         } catch (Exception e){
             System.out.println("Excepción: " + e.getMessage());
             return "redirect:/impresiones";

@@ -118,7 +118,7 @@ public class PiezasController {
         return "piezas/editarPieza";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/edit")
     public String actualizarPieza(Model model, @ModelAttribute PiezaDTO piezaDTO, @RequestParam("id") long id, BindingResult resultado) {
         if (resultado.hasErrors()) {
             return "piezas/editarPieza";

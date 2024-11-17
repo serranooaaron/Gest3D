@@ -114,7 +114,7 @@ public class ImpresorasController {
         return "impresoras/editarImpresora";
     }
 
-     @PostMapping("/edit/{id}")
+     @PostMapping("/edit")
      public String actualizarImpresora(Model model, @ModelAttribute ImpresoraDTO impresoraDTO, @RequestParam long id, BindingResult resultado){
 
          if(resultado.hasErrors()){return "impresoras/editarImpresora";}
@@ -129,7 +129,7 @@ public class ImpresorasController {
          impresora.setHoras_uso(impresoraDTO.getHoras_uso());
          impresora.setConsumo_hora(impresoraDTO.getConsumo_hora());
 
-         impresorasService.createValidado(impresora);
+         impresorasService.create(impresora);
          return "redirect:/impresoras";
      }
 
