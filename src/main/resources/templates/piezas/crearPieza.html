@@ -28,13 +28,12 @@
                             <p th:if="${#fields.hasErrors('calidad')}" th:errorclass="text-danger" th:errors="${piezaDTO.calidad}"></p>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Archivo gcode</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" th:field="${piezaDTO.archivo_gcode}">
-                            <p th:if="${#fields.hasErrors('archivo_gcode')}" th:errorclass="text-danger" th:errors="${piezaDTO.archivo_gcode}"></p>
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Archivo GCode</label>
+                            <div class="col-sm-8">
+                                <input type="file" class="form-control" th:field="${piezaDTO.archivo_gcode}" />
+                            </div>
                         </div>
-                    </div>
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Impresora</label>
                         <div class="col-sm-8">

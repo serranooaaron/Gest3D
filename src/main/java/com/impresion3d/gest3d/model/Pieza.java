@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity // JPA CLASS - Identifica con BD
 @Data // GETTERS & SETTERS By Lombok
@@ -26,6 +25,8 @@ public class Pieza {
 
     private String nombre;
     private int calidad;
+
+    // @Lob
     private String archivo_gcode;
 
 

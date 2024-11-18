@@ -13,12 +13,13 @@
             <div class="col-md-8 mx-auto rounded border p-4 m-4">
                 <h2 class="text-center mb-5">Impresion nueva</h2>
 
-                <form method="post" enctype="multipart/form-data" th:object="${impresionDTO}">
+                <form method="post" enctype="multipart/form-data" th:object="${impresionDTO}">ç
+
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Pieza</label>
                         <div class="col-sm-8">
-                            <select id="piezaid" th:field="${impresionDTO.pieza}" class="form-control">
-                                <option th:each="pieza : ${pieza}" th:value="${pieza.id}" th:text="${pieza.nombre_pieza}" th:selected="${pieza.id == impresionDTO.pieza}"></option>
+                            <select id="id" th:field="${impresionDTO.pieza}" class="form-control">
+                                <option th:each="pieza : ${pieza}" th:value="${pieza.id}" th:text="${pieza.nombre}" th:selected="${pieza.id == impresionDTO.pieza}"></option>
                             </select>
                             <p th:if="${#fields.hasErrors('pieza')}" th:errorclass="text-danger" th:errors="${impresionDTO.pieza}"></p>
                         </div>

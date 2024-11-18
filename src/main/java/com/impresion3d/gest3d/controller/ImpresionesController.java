@@ -35,9 +35,9 @@ public class ImpresionesController{
         List <Impresion> impresion = impresionesService.getImpresiones();
         model.addAttribute("impresion", impresion);
         List<Rollo> rollo = rollosService.getRollos();
-        model.addAttribute("rollos", rollo);
+        model.addAttribute("rollo", rollo);
         List<Pieza> pieza = piezasService.getPiezas();
-        model.addAttribute("piezas", pieza);
+        model.addAttribute("pieza", pieza);
         return "impresiones/index";
     }
     @GetMapping("/create")
@@ -46,9 +46,9 @@ public class ImpresionesController{
         ImpresionDTO impresionDTO = new ImpresionDTO();
         model.addAttribute("impresionDTO", impresionDTO);
         List<Rollo> rollos = rollosService.getRollos();
-        model.addAttribute("rollos", rollos);
+        model.addAttribute("rollo", rollos);
         List<Pieza> piezas = piezasService.getPiezas();
-        model.addAttribute("piezas", piezas);
+        model.addAttribute("pieza", piezas);
         return "/impresiones/crearImpresion.html";
 
     }
@@ -82,7 +82,7 @@ public class ImpresionesController{
 
 
     @PostMapping("/edit")
-    public String actualizarImpresion(Model model, @RequestParam long id,
+    public String actualizarImpresion(Model model, @RequestParam("id") long id,
                                       @Validated @ModelAttribute ImpresionDTO impresionDTO, BindingResult resultado){
         if (resultado.hasErrors()){
             List <Rollo> rollo = rollosService.getRollos();
