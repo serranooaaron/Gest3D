@@ -76,7 +76,7 @@ public class PiezasController {
     }
 
     @PostMapping("/create")
-    public String crearPieza(@ModelAttribute @Validated PiezaDTO piezaDTO, @RequestParam("archivo") MultipartFile archivo, BindingResult r) {
+    public String crearPieza(@ModelAttribute @Validated PiezaDTO piezaDTO, BindingResult r) {
         if (r.hasErrors()) {
             return "/piezas/crearPieza";
         }
@@ -85,13 +85,6 @@ public class PiezasController {
         pieza.setNombre(piezaDTO.getNombre());
         pieza.setCalidad(piezaDTO.getCalidad());
         pieza.setArchivo_gcode(piezaDTO.getArchivo_gcode());
-//        try {
-//            if (archivo != null && !archivo.isEmpty()) {
-//                pieza.setArchivo_gcode(archivo.getBytes()); // Convertir el archivo a byte[]
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException("Error al leer el archivo", e);
-//        }
 
         Optional<Impresora> impresora = impresorasService.getImpresoras(piezaDTO.getImpresora());
         if (impresora.isPresent()) {
@@ -128,7 +121,7 @@ public class PiezasController {
     }
 
     @PostMapping("/edit")
-    public String actualizarPieza(Model model, @ModelAttribute PiezaDTO piezaDTO, @RequestParam("id") long id,@RequestParam(value = "archivo", required = false) MultipartFile archivo, BindingResult resultado) {
+    public String actualizarPieza(Model model, @ModelAttribute PiezaDTO piezaDTO, @RequestParam("id") long id, BindingResult resultado) {
         if (resultado.hasErrors()) {
             return "piezas/editarPieza";
         }
@@ -137,18 +130,6 @@ public class PiezasController {
         pieza.setNombre(piezaDTO.getNombre());
         pieza.setCalidad(piezaDTO.getCalidad());
         pieza.setArchivo_gcode(piezaDTO.getArchivo_gcode());
-//        if (archivo != null && !archivo.isEmpty()) {
-//            try {
-//                pieza.setArchivo_gcode(archivo.getBytes());  // Convertir MultipartFile a byte[]
-//            } catch (IOException e) {
-//                throw new RuntimeException("Error al leer el archivo", e);
-//            }
-//        } else {
-//            // Si no se cargó un nuevo archivo, mantener el archivo original
-//            pieza.setArchivo_gcode(piezaDTO.getArchivo_gcode());
-//
-//        }
-
 
 
         piezasService.create(pieza);
