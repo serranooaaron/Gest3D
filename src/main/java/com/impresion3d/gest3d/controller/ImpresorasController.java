@@ -33,8 +33,9 @@ public class ImpresorasController {
     public Optional<Impresora> getById (@PathVariable("id") Long id){
         return impresorasService.getImpresoras(id);
     }
+
     @GetMapping // HTML View
-    public String MostrarImpresoras(Model model){
+    public String mostrarImpresoras(Model model){
         List<Impresora> impresoras = impresorasService.getImpresoras();
         List<Pieza> piezas = piezasService.getPiezas();
         model.addAttribute("piezas", piezas);
@@ -94,6 +95,7 @@ public class ImpresorasController {
         try {
             Impresora impresora = impresorasService.getImpresoras(id).get();
             model.addAttribute("impresora",impresora);
+
             ImpresoraDTO impresoraDTO = new ImpresoraDTO();
 
             impresora.setNombre(impresoraDTO.getNombre());

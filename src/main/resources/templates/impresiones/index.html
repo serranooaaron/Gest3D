@@ -54,10 +54,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
                     <th>Pieza</th>
                     <th>Rollo</th>
-                    <th>Fecha de impresión</th>
+                    <th>Nombre</th>
+                   <!-- <th>Fecha de impresión</th> -->
                     <th>Tiempo</th>
                     <th>Peso</th>
                     <th>Costo kwh</th>
@@ -71,9 +71,9 @@
                 </tr>
                 <tr th:each="impresion : ${impresion}">
                     <td th:text="${impresion.id}"></td>
-                    <td th:text="${impresion.pieza}"></td>
-                    <td th:text="${impresion.rollo.id}"></td>
-                    <td th:text="${impresion.fecha_impresion}"></td>
+                    <td th:text="${impresion.pieza.nombre}"></td>
+                    <td th:text="${impresion.rollo.nombre}"></td>
+                    <td th:text="${impresion.nombre}"></td>
                     <td th:text="${impresion.tiempo}"></td>
                     <td th:text="${impresion.peso}"></td>
                     <td th:text="${impresion.costo_kwh}"></td>

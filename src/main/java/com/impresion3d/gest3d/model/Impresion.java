@@ -1,6 +1,8 @@
 package com.impresion3d.gest3d.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +13,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 @Entity // JPA CLASS - Identifica con BD
 @Data // GETTERS & SETTERS By Lombok
@@ -20,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Impresion {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -32,7 +35,7 @@ public class Impresion {
     private Rollo rollo;
 
     private String nombre;
-    private LocalDateTime fechaImpresion;
+   // private LocalDateTime fechaImpresion;
     private float tiempo;
     private float peso;
     private float costo_kwh;

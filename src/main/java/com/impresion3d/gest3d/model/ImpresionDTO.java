@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data // Build Getters & Setters by Lombok
 public class ImpresionDTO {
 
     private String nombre;
-    private LocalDateTime fechaImpresion;
+    // private LocalDateTime fechaImpresion;
     private float tiempo;
     private float peso;
     private float costo_kwh;

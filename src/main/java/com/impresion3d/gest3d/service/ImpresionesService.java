@@ -34,10 +34,15 @@ public class ImpresionesService{
     public void create(Impresion impresiones){ impresionesRepository.save(impresiones); }
 
     public Impresion update(Long id, Impresion impresion) {
+        // Verificamos si la impresión con el id existe
         if (impresionesRepository.existsById(id)) {
+            // Asignamos el id de la impresión al objeto que nos pasan, en caso de que no se haya asignado
+            impresion.setId(id);
+
+            // Guardamos la impresión, esto actualizará el registro en la base de datos
             return impresionesRepository.save(impresion);
         }
-        return null;
+        return null; // Retornamos null si no existe la impresión con el id
     }
 
     public void createValidado(Impresion impresion) {  //Se genera valida la busqueda de impresiones.
