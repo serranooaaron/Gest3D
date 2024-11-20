@@ -17,7 +17,7 @@
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Nombre</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" th:field="${materialDTO.nombre}"></textarea>
+                            <input class="form-control" th:field="${materialDTO.nombre}"></input>
                             <p th:if="${#fields.hasErrors('nombre')}" th:errorclass="text-danger" th:errors="${materialDTO.nombre}"></p>
                         </div>
                     </div>
